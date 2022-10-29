@@ -1,17 +1,5 @@
+version: "3.4"
 services:
-    database:
-      image: postgres
-      restart: always
-      environment:
-        POSTGRES_USER: dima
-        POSTGRES_PASSWORD: pass
-        POSTGRES_DB: dima
-      ports:
-        - "5432:5432"
-      volumes:
-        - /home/lib/postgresql/data
-
-
     api:
       image: docker-testproject
       ports:
@@ -19,4 +7,31 @@ services:
       build:
         context: .
         dockerfile: ./Dockerfile
+      environment:
+        WAIT_HOSTS: database:5432
+      depends_on: 
+        - "database"
+      restart: unless-stopped
+      
+
+    database:
+      image: postgres
+      ports:
+        - "5432:5432"
+      volumes:
+        - pgdata:/home/lib/postgresql/data
+      environment:
+        - POSTGRES_USER=dima
+        - POSTGRES_PASSWORD=pass
+        - POSTGRES_DB=dima
+
+      
+
+volumes:
+  pgdata:        
+
+
+
+        
+     
       
