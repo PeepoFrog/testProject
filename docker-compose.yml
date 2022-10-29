@@ -1,0 +1,22 @@
+services:
+    database:
+      image: postgres
+      restart: always
+      environment:
+        POSTGRES_USER: dima
+        POSTGRES_PASSWORD: pass
+        POSTGRES_DB: dima
+      ports:
+        - "5432:5432"
+      volumes:
+        - /home/lib/postgresql/data
+
+
+    api:
+      image: docker-testproject
+      ports:
+      - "4000:4000"
+      build:
+        context: .
+        dockerfile: ./Dockerfile
+      
