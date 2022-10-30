@@ -4,19 +4,11 @@ import (
 	"database/sql"
 	"mime/multipart"
 
-	"github.com/PeepoFrog/testProject/iternal/initilisation"
-	"github.com/PeepoFrog/testProject/iternal/model"
+	"github.com/PeepoFrog/testProject/internal/initilisation"
+	"github.com/PeepoFrog/testProject/internal/model"
 
 	_ "github.com/lib/pq"
 )
-
-// const (
-// 	host     = "database"
-// 	port     = 5432
-// 	user     = "dima"
-// 	password = "pass"
-// 	dbname   = "dima"
-// )
 
 type Handlers struct {
 	db *sql.DB

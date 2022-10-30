@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/PeepoFrog/testProject/iternal/model"
+	"github.com/PeepoFrog/testProject/internal/model"
 )
 
 func (h *Handlers) LoadFromCSVToPostgre(f multipart.File) {

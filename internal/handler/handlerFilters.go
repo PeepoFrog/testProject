@@ -6,7 +6,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/PeepoFrog/testProject/iternal/model"
+	"github.com/PeepoFrog/testProject/internal/model"
 )
 
 func (h *Handlers) QueryFormer(transactionid string, terminalid string, status string, paymenttype string, datepost string, paymentnarrative string) string {
