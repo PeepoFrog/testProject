@@ -1,4 +1,4 @@
-create table IF NOT EXISTS exampledima(
+create table IF NOT EXISTS transactions(
 TransactionId      int,
 	RequestId          int,
 	TerminalId         int,

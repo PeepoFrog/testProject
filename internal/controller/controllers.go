@@ -5,16 +5,16 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/PeepoFrog/testProject/iternal/handler"
+	"github.com/PeepoFrog/testProject/internal/handler"
 
 	"github.com/gocarina/gocsv"
 )
 
 type Controller struct {
-	repository handler.HandlersRepository
+	repository handler.TransactionRepository
 }
 
-func NewControllerRepository(repository handler.HandlersRepository) *Controller {
+func NewControllerRepository(repository handler.TransactionRepository) *Controller {
 	return &Controller{repository: repository}
 }
 func (c *Controller) LoadFromCSVToDB(w http.ResponseWriter, r *http.Request) {

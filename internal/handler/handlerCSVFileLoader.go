@@ -51,7 +51,7 @@ func (h *Handlers) LoadFromCSVToPostgre(f multipart.File) {
 		rec.PayeeBankAccount = record[19]
 		rec.PaymentNarrative = record[20]
 		var ret string
-		sqlStatment := `INSERT INTO exampledima (
+		sqlStatment := `INSERT INTO transactions (
 			TransactionId,	
 			RequestId,
 			TerminalId,

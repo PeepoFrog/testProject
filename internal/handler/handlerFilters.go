@@ -10,7 +10,7 @@ import (
 )
 
 func (h *Handlers) QueryFormer(transactionid string, terminalid string, status string, paymenttype string, datepost string, paymentnarrative string) string {
-	sqlStatment := "Select * from exampledima WHERE "
+	sqlStatment := "Select * from transactions WHERE "
 	if transactionid != "" {
 		sqlStatment = string(sqlStatment + " transactionid=" + transactionid + " AND")
 	}

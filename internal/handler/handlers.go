@@ -21,7 +21,7 @@ func NewHanlders() *Handlers {
 
 }
 
-type HandlersRepository interface {
+type TransactionRepository interface {
 	LoadFromCSVToPostgre(multipart.File)
 	QueryFormer(transactionid string, terminalid string, status string, paymenttype string, datefilter string, phasetosearch string) string
 	RunQuery(sqlStatment string) ([]model.Record, error)
