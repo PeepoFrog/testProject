@@ -21,7 +21,7 @@ func CreatePostgreConnection() *sql.DB {
 
 	takes := 0
 	for err != nil {
-		fmt.Println("waiting 4 seconds and trying again")
+		fmt.Println("failed to connect waiting 4 seconds and trying again")
 		time.Sleep(4 * time.Second)
 
 		db, err = sql.Open("postgres", psqlInfo)
@@ -30,8 +30,8 @@ func CreatePostgreConnection() *sql.DB {
 		fmt.Println(err)
 
 		takes++
-		fmt.Println(takes, " take out of 5")
-		if takes > 5 {
+		fmt.Println(takes, " take out of 8")
+		if takes > 7 {
 			break
 		}
 	}
