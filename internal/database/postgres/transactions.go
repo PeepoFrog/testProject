@@ -25,7 +25,7 @@ func NewHanlders() *Handlers {
 
 }
 func CreatePostgreConnection() *sql.DB {
-	psqlInfo := "host=localhost port=5432 user=dima " +
+	psqlInfo := "host=database port=5432 user=dima " +
 		"password=pass dbname=dima sslmode=disable"
 
 	db, err := sql.Open("postgres", psqlInfo)
