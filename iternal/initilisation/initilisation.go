@@ -45,7 +45,7 @@ func CreatePostgreConnection() *sql.DB {
 }
 
 func CreateIfNotExistTable(db *sql.DB) {
-	b, err := ioutil.ReadFile("../../migration/createTable.sql")
+	b, err := ioutil.ReadFile("./migrations/createTable.sql")
 	if err != nil {
 		fmt.Println(err)
 	}
