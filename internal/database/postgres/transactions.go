@@ -14,14 +14,14 @@ import (
 	"github.com/PeepoFrog/testProject/internal/model"
 )
 
-type Handlers struct {
+type Postgre struct {
 	db *sql.DB
 }
 
-func NewHanlders() *Handlers {
+func NewPostgre() *Postgre {
 	db := CreatePostgreConnection()
 	CreateIfNotExistTable(db)
-	return &Handlers{db: db}
+	return &Postgre{db: db}
 
 }
 func CreatePostgreConnection() *sql.DB {
@@ -74,7 +74,7 @@ func CreateIfNotExistTable(db *sql.DB) {
 	fmt.Println(s, res)
 
 }
-func (h *Handlers) LoadFromCSVToPostgre(f multipart.File) {
+func (h *Postgre) LoadFromCSVToPostgre(f multipart.File) {
 	defer f.Close()
 	reader := csv.NewReader(f)
 	firstrow := true
@@ -143,7 +143,7 @@ func (h *Handlers) LoadFromCSVToPostgre(f multipart.File) {
 	}
 }
 
-func (h *Handlers) QueryFormer(transactionid string, terminalid string, status string, paymenttype string, datepost string, paymentnarrative string) string {
+func (h *Postgre) QueryFormer(transactionid string, terminalid string, status string, paymenttype string, datepost string, paymentnarrative string) string {
 	sqlStatment := "Select * from transactions WHERE "
 	if transactionid != "" {
 		sqlStatment = string(sqlStatment + " transactionid=" + transactionid + " AND")
@@ -174,7 +174,7 @@ func (h *Handlers) QueryFormer(transactionid string, terminalid string, status s
 	fmt.Println(sqlStatment)
 	return sqlStatment
 }
-func (h *Handlers) RunQuery(sqlStatment string) ([]model.Record, error) {
+func (h *Postgre) RunQuery(sqlStatment string) ([]model.Record, error) {
 	var response model.Record
 	var arresponse []model.Record
 	rows, err := h.db.Query(sqlStatment)

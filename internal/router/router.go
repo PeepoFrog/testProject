@@ -10,8 +10,8 @@ import (
 func Router() *mux.Router {
 
 	router := mux.NewRouter()
-	h := postgre.NewHanlders()
-	c := controller.NewControllerRepository(h)
+	h := postgre.NewPostgre()
+	c := controller.NewController(h)
 
 	router.HandleFunc("/uploadfile", c.LoadFromCSVToDB).Methods("PUT")
 	router.HandleFunc("/search", c.QrlSearch).Methods("GET")

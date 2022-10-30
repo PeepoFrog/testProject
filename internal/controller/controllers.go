@@ -14,7 +14,7 @@ type Controller struct {
 	repository database.TransactionRepository
 }
 
-func NewControllerRepository(repository database.TransactionRepository) *Controller {
+func NewController(repository database.TransactionRepository) *Controller {
 	return &Controller{repository: repository}
 }
 func (c *Controller) LoadFromCSVToDB(w http.ResponseWriter, r *http.Request) {
