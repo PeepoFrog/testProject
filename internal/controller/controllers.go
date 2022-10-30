@@ -18,11 +18,10 @@ func NewControllerRepository(repository database.TransactionRepository) *Control
 	return &Controller{repository: repository}
 }
 func (c *Controller) LoadFromCSVToDB(w http.ResponseWriter, r *http.Request) {
-	file, header, err := r.FormFile("file")
+	file, _, err := r.FormFile("file")
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(header)
 	c.repository.LoadFromCSVToPostgre(file)
 }
 
