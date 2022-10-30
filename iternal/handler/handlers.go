@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"mime/multipart"
 
+	"github.com/PeepoFrog/testProject/iternal/initilisation"
 	"github.com/PeepoFrog/testProject/iternal/model"
 
 	_ "github.com/lib/pq"
@@ -22,7 +23,8 @@ type Handlers struct {
 }
 
 func NewHanlders() *Handlers {
-	db := init.createPostgreConnection()
+	db := initilisation.CreatePostgreConnection()
+	initilisation.CreateIfNotExistTable(db)
 	return &Handlers{db: db}
 
 }
