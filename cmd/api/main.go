@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/PeepoFrog/testProject/iternal/router"
+	"github.com/PeepoFrog/testProject/internal/router"
 )
 
 func main() {

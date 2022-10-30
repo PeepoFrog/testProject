@@ -1,8 +1,8 @@
 package router
 
 import (
-	"github.com/PeepoFrog/testProject/iternal/controller"
-	"github.com/PeepoFrog/testProject/iternal/handler"
+	"github.com/PeepoFrog/testProject/internal/controller"
+	postgre "github.com/PeepoFrog/testProject/internal/database/postgres"
 
 	"github.com/gorilla/mux"
 )
@@ -10,7 +10,7 @@ import (
 func Router() *mux.Router {
 
 	router := mux.NewRouter()
-	h := handler.NewHanlders()
+	h := postgre.NewHanlders()
 	c := controller.NewControllerRepository(h)
 
 	router.HandleFunc("/uploadfile", c.LoadFromCSVToDB).Methods("PUT")
