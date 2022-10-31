@@ -5,7 +5,10 @@
     docker compose build
     docker compose up
 
-Щоб завантажити *csv файл в бд потрібно передати файл в параметри form body URL http://localhost:4000/uploadfile з методом PUT
+Щоб завантажити *csv файл в бд потрібно передати файл в параметри form body URL з методом PUT
+
+
+http://localhost:4000/uploadfile 
 
 Фільтрація контенту метод (GET):
 
