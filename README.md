@@ -1,7 +1,7 @@
 #testProject
 
-Для збору і запуску проекту потрібно: 
-    docker compose build 
+Для збору і запуску проекту потрібно:
+    docker compose build
     docker compose up
 
 Щоб завантажити *csv файл в бд потрібно передати файл в параметри form body URL http://localhost:4000/uploadfile з методом PUT
