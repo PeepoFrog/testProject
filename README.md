@@ -4,9 +4,9 @@
     docker compose build 
     docker compose up
 
-    Щоб завантажити *csv файл в бд потрібно передати файл в параметри form body URL http://localhost:4000/uploadfile з методом PUT
+Щоб завантажити *csv файл в бд потрібно передати файл в параметри form body URL http://localhost:4000/uploadfile з методом PUT
 
-    Фільтрація контенту метод (GET):
+Фільтрація контенту метод (GET):
 
     пошук по TransactionId відбувається по url 
     http://localhost:4000/search?transactionid=<номер>
@@ -22,17 +22,18 @@
     пошук по PaymentNarrative відбувається по url 
     http://localhost:4000/search?paymentnarrative=<текст>
 
-    Запросити всю таблицю разом 
+Запросити всю таблицю разом 
     http://localhost:4000/search
-    Вказати декілька параметрів для пошуку одночасно, наприклад знайти стрічку де Status = "declined" і PaymentType = "card" 
+
+Вказати декілька параметрів для пошуку одночасно, наприклад знайти стрічку де Status = "declined" і PaymentType = "card" 
     http://localhost:4000/search?status=declined&paymenttype=card
 
 
 
 
-    SWAGER url: 
+SWAGGER url: 
     http://localhost:4000/documentation/
 
-    Додатково можна запросити результати пошуку csv по url 
+Додатково можна запросити результати пошуку csv по url 
     http://localhost:4000/searchcsv?<параметр>=<значення>&<параметр>=<значення>&<параметр>=<значення> ... 
     Всю таблицю разом http://localhost:4000/searchcsv
