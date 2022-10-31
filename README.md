@@ -1,6 +1,6 @@
 #testProject
 
-Для збору і запуску проекту потрібно:
+Для збору і запуску проекту потрібно
 
     docker compose build
     docker compose up
