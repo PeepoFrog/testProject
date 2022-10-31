@@ -26,7 +26,8 @@
 Запросити всю таблицю разом
 
 
-http://localhost:4000/search
+    http://localhost:4000/search
+
 
 Вказати декілька параметрів для пошуку одночасно, наприклад знайти стрічку де Status = "declined" і PaymentType = "card" 
 
