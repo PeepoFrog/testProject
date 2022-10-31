@@ -23,16 +23,28 @@
     пошук по PaymentNarrative відбувається по url 
     http://localhost:4000/search?paymentnarrative=<текст>
 
-Запросити всю таблицю разом 
-    http://localhost:4000/search
+Запросити всю таблицю разом
+
+
+http://localhost:4000/search
 
 Вказати декілька параметрів для пошуку одночасно, наприклад знайти стрічку де Status = "declined" і PaymentType = "card" 
+
+
     http://localhost:4000/search?status=declined&paymenttype=card
 
 
 SWAGGER url: 
+
+
     http://localhost:4000/documentation/
 
-Додатково можна запросити результати пошуку у csv файлі по url 
+Додатково можна запросити результати пошуку у csv файлі по url
+
+
     http://localhost:4000/searchcsv?<параметр>=<значення>&<параметр>=<значення>&<параметр>=<значення> ... 
-    Всю таблицю разом http://localhost:4000/searchcsv
+
+Всю таблицю разом
+
+
+    http://localhost:4000/searchcsv
