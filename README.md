@@ -1,6 +1,6 @@
 #testProject
 
-    Для збору і запуску проекту потрібно: 
+Для збору і запуску проекту потрібно: 
     docker compose build 
     docker compose up
 
@@ -27,8 +27,6 @@
 
 Вказати декілька параметрів для пошуку одночасно, наприклад знайти стрічку де Status = "declined" і PaymentType = "card" 
     http://localhost:4000/search?status=declined&paymenttype=card
-
-
 
 
 SWAGGER url: 
