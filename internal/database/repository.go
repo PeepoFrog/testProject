@@ -7,7 +7,7 @@ import (
 )
 
 type TransactionRepository interface {
-	LoadFromCSVToPostgre(model.Record) string
+	LoadFromCSVToPostgre(model.Record, string) string
 	QueryFormer(transactionid string, terminalid string, status string, paymenttype string, datefilter string, phasetosearch string) string
 	RunQuery(sqlStatment string) ([]model.Record, error)
 }

@@ -44,6 +44,7 @@ func (c *Controller) LoadFromCSVToDB(w http.ResponseWriter, r *http.Request) {
 	defer file.Close()
 	reader := csv.NewReader(file)
 	firstrow := true
+	c.repository.LoadFromCSVToPostgre(model.Record{}, "BEGIN")
 	for {
 		record, err := reader.Read()
 		if err != nil {
@@ -64,12 +65,10 @@ func (c *Controller) LoadFromCSVToDB(w http.ResponseWriter, r *http.Request) {
 		rec.CommissionPS, _ = strconv.ParseFloat(record[6], 64)
 		rec.CommissionClient, _ = strconv.ParseFloat(record[7], 64)
 		rec.CommissionProvider, _ = strconv.ParseFloat(record[8], 64)
-		//
 		t, _ := time.Parse("2006-1-2 15:04:05", record[9])
 		rec.DateInput = t.Format("2006-1-2 15:04:05")
 		t, _ = time.Parse("2006-1-2 15:04:05", record[10])
 		rec.DatePost = t.Format("2006-1-2 15:04:05")
-		//
 		rec.Status = record[11]
 		rec.PaymentType = record[12]
 		rec.PaymentNumber = record[13]
@@ -80,10 +79,9 @@ func (c *Controller) LoadFromCSVToDB(w http.ResponseWriter, r *http.Request) {
 		rec.PayeeBankMfo, _ = strconv.Atoi(record[18])
 		rec.PayeeBankAccount = record[19]
 		rec.PaymentNarrative = record[20]
-		c.repository.LoadFromCSVToPostgre(rec)
-
+		c.repository.LoadFromCSVToPostgre(rec, "")
 	}
-
+	c.repository.LoadFromCSVToPostgre(model.Record{}, "COMMIT")
 }
 
 // QrlSearch godoc
