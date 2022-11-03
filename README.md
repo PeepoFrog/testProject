@@ -22,7 +22,7 @@
     пошук по Status відбувається по url 
     http://localhost:4000/search?status=<текст>
     пошук по PaymentType відбувається по url 
-    http://localhost:4000/paymenttype?status=<текст>
+    http://localhost:4000/search?paymenttype=<текст>
     пошук по DatePost відбувається по url 
     http://localhost:4000/search?datepost=<2022-08-30>,<2022-09-28> // формат: рік-місяць-день
     пошук по PaymentNarrative відбувається по url 
