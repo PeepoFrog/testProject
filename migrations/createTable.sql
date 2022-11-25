@@ -1,5 +1,5 @@
 create table IF NOT EXISTS transactions(
-TransactionId      int,
+	TransactionId      int PRIMARY KEY,
 	RequestId          int,
 	TerminalId         int,
 	PartnerObjectId    int,

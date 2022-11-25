@@ -4,6 +4,7 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -34,17 +35,18 @@ func NewController(repository database.TransactionRepository) *Controller {
 func (c *Controller) LoadFromCSVToDB(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Allow-Control-Allow-Methods", "PUT")
 	w.Header().Set("Content-Type", "application/json")
-
 	file, _, err := r.FormFile("file")
 	if err != nil {
 		fmt.Println(err)
 		json.NewEncoder(w).Encode(err)
-
 	}
 	defer file.Close()
 	reader := csv.NewReader(file)
 	firstrow := true
 	c.repository.LoadFromCSVToPostgre(model.Record{}, "BEGIN")
+	var arrarr []string
+	var errstring string
+
 	for {
 		record, err := reader.Read()
 		if err != nil {
@@ -56,32 +58,110 @@ func (c *Controller) LoadFromCSVToDB(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 		var rec model.Record
-		rec.TransactionId, _ = strconv.Atoi(record[0])
-		rec.RequestId, _ = strconv.Atoi(record[1])
-		rec.TerminalId, _ = strconv.Atoi(record[2])
-		rec.PartnerObjectId, _ = strconv.Atoi(record[3])
-		rec.AmountTotal, _ = strconv.ParseFloat(record[4], 64)
-		rec.AmountOriginal, _ = strconv.ParseFloat(record[5], 64)
-		rec.CommissionPS, _ = strconv.ParseFloat(record[6], 64)
-		rec.CommissionClient, _ = strconv.ParseFloat(record[7], 64)
-		rec.CommissionProvider, _ = strconv.ParseFloat(record[8], 64)
-		t, _ := time.Parse("2006-1-2 15:04:05", record[9])
+		var aerr error
+		rec.TransactionId, aerr = strconv.Atoi(record[0])
+		if aerr != nil {
+			errstring = "error with converting TransactionID with " + record[0] + " data"
+			arrarr = append(arrarr, errstring)
+			log.Println(aerr)
+		}
+		rec.RequestId, aerr = strconv.Atoi(record[1])
+		if aerr != nil {
+			errstring = "error with converting RequestID with " + record[1] + " data"
+			arrarr = append(arrarr, errstring)
+			log.Println(aerr)
+		}
+		rec.TerminalId, aerr = strconv.Atoi(record[2])
+		if aerr != nil {
+			errstring = "error with converting TerminalID with " + record[2] + " data"
+			arrarr = append(arrarr, errstring)
+			log.Println(aerr)
+		}
+		rec.PartnerObjectId, aerr = strconv.Atoi(record[3])
+		if aerr != nil {
+			errstring = "error with converting PartnerObjectID with " + record[3] + " data"
+			arrarr = append(arrarr, errstring)
+			log.Println(aerr)
+		}
+		rec.AmountTotal, aerr = strconv.ParseFloat(record[4], 64)
+		if aerr != nil {
+			errstring = "error with converting AmountTotal with " + record[4] + " data"
+			arrarr = append(arrarr, errstring)
+			log.Println(aerr)
+		}
+		rec.AmountOriginal, aerr = strconv.ParseFloat(record[5], 64)
+		if aerr != nil {
+			errstring = "error with converting AmountOriginal with " + record[5] + " data"
+			arrarr = append(arrarr, errstring)
+			log.Println(aerr)
+		}
+		rec.CommissionPS, aerr = strconv.ParseFloat(record[6], 64)
+		if aerr != nil {
+			errstring = "error with converting CommisionPS with " + record[6] + " data"
+			arrarr = append(arrarr, errstring)
+			log.Println(aerr)
+		}
+		rec.CommissionClient, aerr = strconv.ParseFloat(record[7], 64)
+		if err != nil {
+			errstring = "error with converting CommisionClient with " + record[7] + " data"
+			arrarr = append(arrarr, errstring)
+			log.Println(err)
+		}
+		rec.CommissionProvider, aerr = strconv.ParseFloat(record[8], 64)
+		if aerr != nil {
+			errstring = "error with converting CommisionProvider with " + record[8] + " data"
+			arrarr = append(arrarr, errstring)
+			log.Println(aerr)
+		}
+		t, aerr := time.Parse("2006-1-2 15:04:05", record[9])
+		if err != nil {
+			errstring = "cannot parse data Wrong Date type " + record[9]
+			arrarr = append(arrarr, errstring)
+			log.Println(err)
+		}
 		rec.DateInput = t.Format("2006-1-2 15:04:05")
-		t, _ = time.Parse("2006-1-2 15:04:05", record[10])
+		t, aerr = time.Parse("2006-1-2 15:04:05", record[10])
+		if aerr != nil {
+			errstring = "cannot parse data wrong Date type" + record[10]
+			arrarr = append(arrarr, errstring)
+			log.Println(aerr)
+		}
 		rec.DatePost = t.Format("2006-1-2 15:04:05")
 		rec.Status = record[11]
 		rec.PaymentType = record[12]
 		rec.PaymentNumber = record[13]
-		rec.ServiceId, _ = strconv.Atoi(record[14])
+		rec.ServiceId, aerr = strconv.Atoi(record[14])
+		if aerr != nil {
+			errstring = "error with converting ServiceID with " + record[14] + " data"
+			arrarr = append(arrarr, errstring)
+			log.Println(aerr)
+		}
 		rec.Service = record[15]
 		rec.PayeeId = record[16]
 		rec.PayeeName = record[17]
-		rec.PayeeBankMfo, _ = strconv.Atoi(record[18])
+		rec.PayeeBankMfo, aerr = strconv.Atoi(record[18])
+		if aerr != nil {
+			errstring = "error with converting PayeeBankMfo with " + record[18] + " data"
+			arrarr = append(arrarr, errstring)
+			log.Println(aerr)
+		}
 		rec.PayeeBankAccount = record[19]
 		rec.PaymentNarrative = record[20]
 		c.repository.LoadFromCSVToPostgre(rec, "")
 	}
-	c.repository.LoadFromCSVToPostgre(model.Record{}, "COMMIT")
+	fmt.Println(arrarr)
+	if arrarr == nil {
+		c.repository.LoadFromCSVToPostgre(model.Record{}, "COMMIT")
+
+	} else {
+		w.WriteHeader(http.StatusBadRequest)
+		log.Println(arrarr)
+		err = json.NewEncoder(w).Encode(arrarr)
+		if err != nil {
+			log.Println(err)
+		}
+	}
+
 }
 
 // QrlSearch godoc
@@ -110,9 +190,12 @@ func (c *Controller) QrlSearch(w http.ResponseWriter, r *http.Request) {
 	statment := c.repository.QueryFormer(transactionid, terminalid, status, paymenttype, datefilter, phasetosearch)
 	res, err := c.repository.RunQuery(statment)
 	if err != nil {
-		json.NewEncoder(w).Encode(err)
+		fmt.Println(err)
 	}
-	json.NewEncoder(w).Encode(res)
+	err = json.NewEncoder(w).Encode(res)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 }
 
@@ -131,7 +214,7 @@ func (c *Controller) QrlSearch(w http.ResponseWriter, r *http.Request) {
 // @Success 200
 // @Router  /searchcsv [get]
 func (c *Controller) QrlSearchToCSV(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "response/csv")
+	w.Header().Set("Content-Type", "text/csv")
 	w.Header().Set("Allow-Control-Allow-Methods", "GET")
 	w.Header().Set("Content-Disposition", "attachment;filename=response.csv")
 	transactionid := r.URL.Query().Get("transactionid")
@@ -142,10 +225,11 @@ func (c *Controller) QrlSearchToCSV(w http.ResponseWriter, r *http.Request) {
 	phasetosearch := r.URL.Query().Get("paymentnarrative")
 	statment := c.repository.QueryFormer(transactionid, terminalid, status, paymenttype, datefilter, phasetosearch)
 	qres, err := c.repository.RunQuery(statment)
-
 	if err != nil {
-		json.NewEncoder(w).Encode(err)
+		fmt.Println(err)
 	}
-	gocsv.Marshal(qres, w)
-
+	err = gocsv.Marshal(qres, w)
+	if err != nil {
+		fmt.Println(err)
+	}
 }

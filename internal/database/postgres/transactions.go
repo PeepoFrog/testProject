@@ -72,12 +72,6 @@ func CreateIfNotExistTable(db *sql.DB) {
 
 }
 
-func (h *Postgre) BeginTransaction() {
-
-}
-func (h *Postgre) CommitTransaction() {
-
-}
 func (h *Postgre) LoadFromCSVToPostgre(rec model.Record, statment string) string {
 	var ret string
 	switch statment {
@@ -114,7 +108,28 @@ func (h *Postgre) LoadFromCSVToPostgre(rec model.Record, statment string) string
 			PayeeBankAccount,
 			PaymentNarrative   
 			) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21 ) RETURNING *`
-		h.db.QueryRow(sqlStatment, rec.TransactionId, rec.RequestId, rec.TerminalId, rec.PartnerObjectId, rec.AmountTotal, rec.AmountOriginal, rec.CommissionPS, rec.CommissionClient, rec.CommissionProvider, rec.DateInput, rec.DatePost, rec.Status, rec.PaymentType, rec.PaymentNumber, rec.ServiceId, rec.Service, rec.PayeeId, rec.PayeeName, rec.PayeeBankMfo, rec.PayeeBankAccount, rec.PaymentNarrative).Scan(ret)
+		h.db.QueryRow(sqlStatment,
+			rec.TransactionId,
+			rec.RequestId,
+			rec.TerminalId,
+			rec.PartnerObjectId,
+			rec.AmountTotal,
+			rec.AmountOriginal,
+			rec.CommissionPS,
+			rec.CommissionClient,
+			rec.CommissionProvider,
+			rec.DateInput,
+			rec.DatePost,
+			rec.Status,
+			rec.PaymentType,
+			rec.PaymentNumber,
+			rec.ServiceId,
+			rec.Service,
+			rec.PayeeId,
+			rec.PayeeName,
+			rec.PayeeBankMfo,
+			rec.PayeeBankAccount,
+			rec.PaymentNarrative).Scan(ret)
 		return ret
 	}
 }
@@ -188,13 +203,11 @@ func (h *Postgre) RunQuery(sqlStatment string) ([]model.Record, error) {
 	switch err {
 	case sql.ErrNoRows:
 		fmt.Println("No rows were returned!")
-
 		return arresponse, nil
 	case nil:
 		return arresponse, nil
 	default:
 		fmt.Printf("Unable to scan the row. %v", err)
-
 	}
 	return arresponse, err
 }
