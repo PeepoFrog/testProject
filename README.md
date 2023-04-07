@@ -14,6 +14,7 @@
 
 Фільтрація контенту метод (GET):
 
+
     пошук по TransactionId відбувається по url 
     http://localhost:4000/search?transactionid=<номер>
     пошук по TerminalId відбувається по url 
