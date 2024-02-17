@@ -11,7 +11,7 @@
 
     http://localhost:4000/uploadfile 
 
- 
+  
 Фільтрація контенту метод (GET):
 
     пошук по TransactionId відбувається по url 
